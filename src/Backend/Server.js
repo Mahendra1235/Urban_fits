@@ -3,21 +3,41 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const app = express();
 
-app.use(cors());
+// CORS setup with Access-Control-Allow-Private-Network support
+const corsOptions = {
+  origin: 'http://localhost:3000', // adjust this if your frontend is served from a different origin
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type'],
+  credentials: true
+};
+
+app.use(cors(corsOptions));
+
+// Manually add Access-Control-Allow-Private-Network header for PNA compliance
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Private-Network', 'true');
+  next();
+});
 
 app.use(express.json());
 
 // MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',        
-  password: 'root@123', 
+  user: 'root',
+  password: 'root@123',
   database: 'fashion_store'
 });
 
 db.connect(err => {
   if (err) throw err;
   console.log('Connected to MySQL database');
+});
+
+// Handle preflight (OPTIONS) requests
+app.options('*', (req, res) => {
+  res.setHeader('Access-Control-Allow-Private-Network', 'true');
+  res.sendStatus(204);
 });
 
 // GET all products
@@ -31,9 +51,7 @@ app.get('/products', (req, res) => {
   });
 });
 
-
-// Store order details
-
+// POST order submission
 app.post('/submit-order', (req, res) => {
   const { address, items, total } = req.body;
 
@@ -83,7 +101,7 @@ app.post('/submit-order', (req, res) => {
   });
 });
 
-
+// Start the server
 app.listen(8081, () => {
   console.log(`Server running on http://localhost:8081`);
 });
