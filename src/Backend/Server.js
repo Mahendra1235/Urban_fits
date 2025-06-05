@@ -100,13 +100,11 @@ app.post('/submit-order', (req, res) => {
 
 
 app.listen(8081, () => {
-  // console.log(`Server running on https://urban-fits.vercel.app`);
-  console.log('Server running on http://localhost:8081');
-
+  console.log(`Server running on https://urban-fits.vercel.app`);
 });
 
-// app.use((req, res, next) => {
-//   console.log('Origin:', req.headers.origin);
-//   next();
-// });
+app.use((req, res, next) => {
+  console.log('Origin:', req.headers.origin);
+  next();
+});
 
