@@ -11,13 +11,22 @@ const ProductList = () => {
   //     .catch(err => console.error('Error fetching products:', err));
   // }, []); 
   useEffect(() => {
-    const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
+  const url = `${apiBaseUrl}/products`;
+  console.log('Fetching from:', url);
 
-    fetch(`${apiBaseUrl}/products`)
-      .then(res => res.json())
-      .then(data => setProducts(data))
-      .catch(err => console.error('Error fetching products:', err));
-  }, []);
+  fetch(url)
+    .then(res => {
+      const contentType = res.headers.get('content-type');
+      if (!res.ok || !contentType || !contentType.includes('application/json')) {
+        throw new Error(`Invalid response: ${res.status} - ${contentType}`);
+      }
+      return res.json();
+    })
+    .then(data => setProducts(data))
+    .catch(err => console.error('Error fetching products:', err));
+}, []);
+
 
   // console.log('Fetched products:', data);
 
