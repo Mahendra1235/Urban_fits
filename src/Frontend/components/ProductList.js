@@ -5,7 +5,9 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8081/products')
+    const url = `${process.env.REACT_APP_API_BASE_URL}/products`;
+
+    fetch(url)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error('Error fetching products:', err));
@@ -16,6 +18,6 @@ const ProductList = () => {
       {products.map(p => <ProductCard key={p.id} product={p} />)}
     </div>
   );
-};
+};  
 
 export default ProductList;
