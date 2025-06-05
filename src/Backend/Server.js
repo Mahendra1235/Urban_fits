@@ -5,11 +5,14 @@ const app = express();
 
 app.use(cors({
   // origin: ['http://your-vercel-app.vercel.app'],
-  // origin: ['https://urban-fits.vercel.app'],
-  origin: ['http://localhost:3000'],
+  origin: 'https://urban-fits.vercel.app',
+  // origin: ['http://localhost:3000'],
   methods: ['GET', 'POST'],
   credentials:true
 }));
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
 app.use(express.json());
 
@@ -91,7 +94,7 @@ app.post('/submit-order', (req, res) => {
 
 
 app.listen(8081, () => {
-  console.log(`Server running on http://localhost:8081`);
+  console.log(`Server running on https://urban-fits.vercel.app  `);
 });
 
 app.use((req, res, next) => {
