@@ -12,7 +12,7 @@ const app = express();
 // }));
 
 const corsOptions = {
-  origin: 'http://urban-fits.vercel.app',
+  origin: ['http://localhost:3000', 'https://urban-fits.vercel.app'],
   methods: ['GET', 'POST'],
   credentials: true
 };
@@ -100,7 +100,7 @@ app.post('/submit-order', (req, res) => {
 
 
 app.listen(8081, () => {
-  console.log(`Server running on https://urban-fits.vercel.app`);
+  console.log(`Server running on http://localhost:3000`);
 });
 
 app.use((req, res, next) => {
