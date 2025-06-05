@@ -5,7 +5,7 @@ const app = express();
 
 app.use(cors({
   // origin: ['http://your-vercel-app.vercel.app'],
-  origin: ['https://urban-fits.vercel.app/'],
+  origin: ['https://urban-fits.vercel.app'],
   methods: ['GET', 'POST'],
   credentials:true
 }));
