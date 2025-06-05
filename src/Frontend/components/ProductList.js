@@ -26,7 +26,7 @@ const ProductList = () => {
     .then(data => setProducts(data))
     .catch(err => console.error('Error fetching products:', err));
 }, []);
-
+ console.log ('API base URL:', process.env.REACT_APP_API_BASE_URL);
 
   // console.log('Fetched products:', data);
 
