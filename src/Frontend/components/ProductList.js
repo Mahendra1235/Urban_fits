@@ -5,13 +5,15 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:8081/products')
+    fetch(`${process.env.REACT_APP_API_BASE_URL}/products`)
       .then(res => res.json())
       .then(data => setProducts(data))
       .catch(err => console.error('Error fetching products:', err));
   }, []);
 
-  return (
+  // console.log('Fetched products:', data);
+
+  return (  
     <div className="product-list">
       {products.map(p => <ProductCard key={p.id} product={p} />)}
     </div>
