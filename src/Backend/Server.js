@@ -3,13 +3,19 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({
-  // origin: ['http://your-vercel-app.vercel.app'],
-  origin: 'https://urban-fits.vercel.app',
-  // origin: ['http://localhost:3000'],
+// app.use(cors({
+//   // origin: ['http://your-vercel-app.vercel.app'],
+//   origin: 'https://urban-fits.vercel.app',
+//   // origin: ['http://localhost:3000'],
+//   methods: ['GET', 'POST'],
+//   credentials:true
+// }));
+
+const corsOptions = {
+  origin: 'http://urban-fits.vercel.app',
   methods: ['GET', 'POST'],
-  credentials:true
-}));
+  credentials: true
+};
 
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
@@ -94,11 +100,13 @@ app.post('/submit-order', (req, res) => {
 
 
 app.listen(8081, () => {
-  console.log(`Server running on https://urban-fits.vercel.app  `);
+  // console.log(`Server running on https://urban-fits.vercel.app`);
+  console.log('Server running on http://localhost:8081');
+
 });
 
-app.use((req, res, next) => {
-  console.log('Origin:', req.headers.origin);
-  next();
-});
+// app.use((req, res, next) => {
+//   console.log('Origin:', req.headers.origin);
+//   next();
+// });
 
