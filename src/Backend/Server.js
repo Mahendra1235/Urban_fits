@@ -103,23 +103,8 @@ app.listen(8081, () => {
   console.log(`Server running on http://localhost:3000`);
 });
 
-// app.use((req, res, next) => {
-//   console.log('Origin:', req.headers.origin);
-//   next();
-// });
-
 app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "http://localhost:3000");
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  res.header("Access-Control-Allow-Headers", "Content-Type");
-  
-  // Add this to support Chrome's Private Network Access check
-  res.header("Access-Control-Allow-Private-Network", "true");
-
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-
+  console.log('Origin:', req.headers.origin);
   next();
 });
 
