@@ -3,30 +3,20 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const app = express();
 
-// app.use(cors({
-//   // origin: ['http://your-vercel-app.vercel.app'],
-//   origin: 'https://urban-fits.vercel.app',
-//   // origin: ['http://localhost:3000'],
-//   methods: ['GET', 'POST'],
-//   credentials:true
-// }));
-
-const corsOptions = {
+// CORS configuration
+app.use(cors({
   origin: ['http://localhost:3000', 'https://urban-fits.vercel.app'],
   methods: ['GET', 'POST'],
   credentials: true
-};
-
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
+}));
 
 app.use(express.json());
 
 // MySQL connection
 const db = mysql.createConnection({
   host: 'localhost',
-  user: 'root',        
-  password: 'root@123', 
+  user: 'root',
+  password: 'root@123',
   database: 'fashion_store'
 });
 
@@ -46,9 +36,7 @@ app.get('/products', (req, res) => {
   });
 });
 
-
 // Store order details
-
 app.post('/submit-order', (req, res) => {
   const { address, items, total } = req.body;
 
@@ -98,13 +86,7 @@ app.post('/submit-order', (req, res) => {
   });
 });
 
-
+// Start server
 app.listen(8081, () => {
-  console.log(`Server running on http://localhost:3000`);
+  console.log('Server running on http://localhost:8081');
 });
-
-app.use((req, res, next) => {
-  console.log('Origin:', req.headers.origin);
-  next();
-});
-

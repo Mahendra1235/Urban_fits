@@ -4,57 +4,20 @@ import ProductCard from './ProductCard';
 const ProductList = () => {
   const [products, setProducts] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:8081/products')
-  //     .then(res => res.json())
-  //     .then(data => setProducts(data))
-  //     .catch(err => console.error('Error fetching products:', err));
-  // }, []); 
   useEffect(() => {
-  const apiBaseUrl = process.env.REACT_APP_API_BASE_URL;
-  const url = `${apiBaseUrl}/products`;
-  console.log('Fetching from:', url);
+    fetch('http://localhost:8081/products')
+      .then(res => res.json())
+      .then(data => setProducts(data))
+      .catch(err => console.error('Error fetching products:', err));
+  }, []);
 
-  fetch(url)
-    .then(res => {
-      const contentType = res.headers.get('content-type');
-      if (!res.ok || !contentType || !contentType.includes('application/json')) {
-        throw new Error(`Invalid response: ${res.status} - ${contentType}`);
-      }
-      return res.json();
-    })
-    .then(data => setProducts(data))
-    .catch(err => console.error('Error fetching products:', err));
-}, []);
- console.log ('API base URL:', process.env.REACT_APP_API_BASE_URL);
-
-  // console.log('Fetched products:', data);
-
-  return (  
+  return (
     <div className="product-list">
-      {products.map(p => <ProductCard key={p.id} product={p} />)}
+      {products.map(p => (
+        <ProductCard key={p.id} product={p} />
+      ))}
     </div>
   );
 };
-
-// const ProductList = () => {
-//   const [products, setProducts] = useState([]);
-
-//   useEffect(() => {
-//     const url = `${process.env.REACT_APP_API_BASE_URL}/products`;
-
-//     fetch(url)
-//       .then(res => res.json())
-//       .then(data => setProducts(data))
-//       .catch(err => console.error('Error fetching products:', err));
-//   }, []);
-
-//   return (
-//     <div className="product-list">
-//       {products.map(p => <ProductCard key={p.id} product={p} />)}
-//     </div>
-//   );
-// };  
-
 
 export default ProductList;
