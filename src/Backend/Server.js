@@ -3,12 +3,14 @@ const mysql = require('mysql2');
 const cors = require('cors');
 const app = express();
 
-// CORS configuration
-app.use(cors({
-  origin: ['http://localhost:3000', 'https://urban-fits.vercel.app'],
-  methods: ['GET', 'POST'],
-  credentials: true
-}));
+// // CORS configuration
+// app.use(cors({
+//   origin: ['http://localhost:3000', 'https://urban-fits.vercel.app'],
+//   methods: ['GET', 'POST'],
+//   credentials: true
+// }));
+
+app.use(cors());
 
 app.use(express.json());
 
